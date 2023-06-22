@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-	const [selectedTab, setSelectedTab] = useState("home");
+	const [selectedTab, setSelectedTab] = useState("");
 
 	const selectTab = (tab) => {
 		setSelectedTab(tab);
 	};
 
 	return (
-		<div className="bg-blue-500 text-blue-100 text-center w-screen rounded-b-xl mb-8">
+		<div className="bg-blue-500 text-blue-100 text-center w-screen rounded-b-xl ">
 			<h1 className="py-8 tracking-widest text-xl">MeWatchThings</h1>
 			<div className="flex justify-center text-xs tracking-wide">
 				<ul className=" flex justify-between items-center max-w-lg w-full px-4">

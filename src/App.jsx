@@ -5,6 +5,7 @@ import Menu from "./components/Menu";
 import Header from "./components/Header";
 import SearchMovie from "./components/SearchMovie";
 import MyWatchlist from "./components/MyWatchlist";
+import Footer from "./components/Footer";
 
 function App() {
 	return (
@@ -15,6 +16,7 @@ function App() {
 				<Route exact path="/search" element={<SearchMovie />} />
 				<Route exact path="/my-watchlist" element={<MyWatchlist />} />
 			</Routes>
+			{/* <Footer /> */}
 		</div>
 	);
 }
