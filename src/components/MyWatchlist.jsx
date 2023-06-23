@@ -2,7 +2,14 @@ import React, { useContext } from "react";
 import { Context } from "../context/Context";
 
 const MyWatchlist = () => {
-	const { watchlist } = useContext(Context);
+	const { watchlist, setWatchlist } = useContext(Context);
+
+	const deleteMovie = (id) => {
+		const thisMovie = watchlist.find((item) => item.imdbID === id);
+		setWatchlist((prev) =>
+			prev.filter((item) => item.imdbID !== thisMovie.imdbID)
+		);
+	};
 
 	const dataCardsElement = watchlist.map((item) => (
 		<>
@@ -14,7 +21,10 @@ const MyWatchlist = () => {
 					<button className="bg-gray-400 text-white w-1/2 px-4 py-1 rounded-lg">
 						mark as done
 					</button>
-					<button className="ml-auto bg-red-500 text-white w-1/5 px-4 py-1 rounded-lg">
+					<button
+						onClick={() => deleteMovie(item.imdbID)}
+						className="ml-auto bg-red-500 text-white w-1/5 px-4 py-1 rounded-lg"
+					>
 						x
 					</button>
 				</div>
