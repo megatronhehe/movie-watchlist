@@ -5,9 +5,14 @@ const MyWatchlist = () => {
 	const { watchlist, setWatchlist } = useContext(Context);
 
 	const deleteMovie = (id) => {
-		const thisMovie = watchlist.find((item) => item.imdbID === id);
+		setWatchlist((prev) => prev.filter((item) => item.imdbID !== id));
+	};
+
+	const markDone = (id) => {
 		setWatchlist((prev) =>
-			prev.filter((item) => item.imdbID !== thisMovie.imdbID)
+			prev.map((item) =>
+				item.imdbID === id ? { ...item, isDone: !item.isDone } : item
+			)
 		);
 	};
 
@@ -18,14 +23,19 @@ const MyWatchlist = () => {
 				className="text-blue-700 tracking-wide p-2 mx-5 mb-4  bg-gray-200 rounded-lg shadow-lg text-xs"
 			>
 				<div className="mb-2 flex">
-					<button className="bg-gray-400 text-white w-1/2 px-4 py-1 rounded-lg">
-						mark as done
+					<button
+						onClick={() => markDone(item.imdbID)}
+						className={`tracking-widest bg-gray-400 text-white w-1/2 px-4 py-1 rounded-lg ${
+							item.isDone && "bg-lime-500"
+						}`}
+					>
+						{item.isDone ? "watched" : "mark as done"}
 					</button>
 					<button
 						onClick={() => deleteMovie(item.imdbID)}
 						className="ml-auto bg-red-500 text-white w-1/5 px-4 py-1 rounded-lg"
 					>
-						x
+						X
 					</button>
 				</div>
 				<div className="flex">
@@ -43,6 +53,8 @@ const MyWatchlist = () => {
 								<li>{item.Runtime}</li>
 								<li>{item.Genre}</li>
 								<li>{item.Actors}</li>
+
+								{item.isDone ? <li>dah</li> : <li>lom</li>}
 							</ul>
 						</div>
 					</div>

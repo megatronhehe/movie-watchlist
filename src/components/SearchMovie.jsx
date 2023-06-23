@@ -34,7 +34,10 @@ const SearchMovie = () => {
 	};
 
 	const addWatchlist = (id) => {
-		const thisMovie = data.find((item) => item.imdbID === id);
+		const thisMovie = {
+			...data.find((item) => item.imdbID === id),
+			isDone: false,
+		};
 		const isExist = watchlist.some((item) => item.imdbID === thisMovie.imdbID);
 		!isExist && setWatchlist((prev) => [...prev, thisMovie]);
 	};
@@ -63,7 +66,7 @@ const SearchMovie = () => {
 			</div>
 			<button
 				onClick={() => addWatchlist(item.imdbID)}
-				className="bg-gray-100 px-2 rounded-lg ml-2 text-blue-500 text-xl border-2 border-blue-500"
+				className="bg-gray-100 px-2 rounded-lg ml-2 text-blue-500 text-xl border border-blue-500"
 			>
 				+
 			</button>
