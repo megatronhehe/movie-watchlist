@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../context/Context";
 
 const MyWatchlist = () => {
@@ -53,8 +54,6 @@ const MyWatchlist = () => {
 								<li>{item.Runtime}</li>
 								<li>{item.Genre}</li>
 								<li>{item.Actors}</li>
-
-								{item.isDone ? <li>dah</li> : <li>lom</li>}
 							</ul>
 						</div>
 					</div>
@@ -63,15 +62,24 @@ const MyWatchlist = () => {
 		</>
 	));
 
-	console.log(watchlist);
-
 	return (
 		<div className="flex flex-col items-center">
 			<div className="max-w-lg w-full shadow-lg pt-8 h-full">
 				<section className="text-center text-blue-100 tracking-wide p-2 mx-5 mb-8 bg-blue-500 rounded-lg shadow-lg">
 					My Watch List
 				</section>
-				<section>{dataCardsElement}</section>
+				<section>
+					{watchlist.length > 0 ? (
+						dataCardsElement
+					) : (
+						<Link to="/search" className="flex justify-center">
+							<p className="text-center w-1/2 mb-8 text-gray-400 text-sm">
+								your watchlist is empty! go start and search for a movie or a
+								show <span className="font-bold">here</span>
+							</p>
+						</Link>
+					)}
+				</section>
 			</div>
 		</div>
 	);

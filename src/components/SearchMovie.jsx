@@ -42,10 +42,14 @@ const SearchMovie = () => {
 		!isExist && setWatchlist((prev) => [...prev, thisMovie]);
 	};
 
+	const isExistInWatchlist = (id) => {
+		return watchlist.some((item) => item.imdbID === id);
+	};
+
 	const dataCardsElement = data.map((item) => (
 		<div
 			key={item.imdbID}
-			className="flex text-blue-700 tracking-wide p-2 mx-5 mb-4  bg-gray-200 rounded-lg shadow-lg text-xs"
+			className="flex text-blue-700 tracking-wide p-2 mx-5 mb-4  bg-gray-200 rounded-lg shadow-lg text-xs relative"
 		>
 			<img
 				src={item.Poster}
@@ -70,6 +74,11 @@ const SearchMovie = () => {
 			>
 				+
 			</button>
+			{isExistInWatchlist(item.imdbID) && (
+				<p className="absolute top-0 left-6 p-2 rounded-b-lg bg-blue-500 text-blue-100 ">
+					Listed In Watchlist
+				</p>
+			)}
 		</div>
 	));
 
