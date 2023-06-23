@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../context/Context";
 
 const SearchMovie = () => {
-	const { data, setData } = useContext(Context);
+	const { data, setData, watchlist, setWatchlist } = useContext(Context);
 
 	const [isSearching, setIsSearching] = useState(false);
 	const [searchInput, setSearchInput] = useState("");
@@ -21,7 +21,6 @@ const SearchMovie = () => {
 				)
 				.catch((err) => console.log(err));
 		setIsSearching(false);
-		setData([]);
 	}, [isSearching]);
 
 	const handleChange = (event) => {
@@ -30,28 +29,44 @@ const SearchMovie = () => {
 	};
 
 	const handleSearch = () => {
+		setData([]);
 		setIsSearching(true);
 	};
 
-	console.log(data);
+	const addWatchlist = (id) => {
+		const thisMovie = data.find((item) => item.imdbID === id);
+		const isExist = watchlist.some((item) => item.imdbID === thisMovie.imdbID);
+		!isExist && setWatchlist((prev) => [...prev, thisMovie]);
+	};
 
 	const dataCardsElement = data.map((item) => (
 		<div
 			key={item.imdbID}
-			className="flex h-40 text-blue-500 tracking-wide p-2 mx-5 mb-8 bg-gray-100 rounded-lg shadow-lg text-sm"
+			className="flex text-blue-700 tracking-wide p-2 mx-5 mb-4  bg-gray-200 rounded-lg shadow-lg text-xs"
 		>
 			<img
 				src={item.Poster}
-				className="rounded-lg bg-gray-200 shadow-md h-full w-1/3"
+				className="object-cover rounded-lg bg-gray-200 shadow-md h-full w-1/3 "
 			></img>
-			<div className="ml-4">
-				<h1 className="text-lg">
-					{item.Title} <span className="text-sm">{item.Year}</span>
+			<div className="ml-4 w-full">
+				<h1 className="text-md font-bold border-b border-blue-500 text-center mb-2 pb-2">
+					{item.Title} <span className="">({item.Year})</span>
 				</h1>
-				<p>{item.imdbRating}</p>
-				<p>{item.Runtime}</p>
-				<p>{item.Genre}</p>
+				<div className="flex justify-between items-center gap-2">
+					<ul className="">
+						<li className="text-center">{item.imdbRating}</li>
+						<li>{item.Runtime}</li>
+						<li>{item.Genre}</li>
+						<li>{item.Actors}</li>
+					</ul>
+				</div>
 			</div>
+			<button
+				onClick={() => addWatchlist(item.imdbID)}
+				className="bg-gray-100 px-2 rounded-lg ml-2 text-blue-500 text-xl border-2 border-blue-500"
+			>
+				+
+			</button>
 		</div>
 	));
 
