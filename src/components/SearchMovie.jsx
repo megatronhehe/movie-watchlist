@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../context/Context";
 
 const SearchMovie = () => {
-	const { data, setData, watchlist, setWatchlist } = useContext(Context);
+	const { data, setData, watchlist, setWatchlist, deleteMovie } =
+		useContext(Context);
 
 	const [isSearching, setIsSearching] = useState(false);
 	const [searchInput, setSearchInput] = useState("");
@@ -39,7 +40,9 @@ const SearchMovie = () => {
 			isDone: false,
 		};
 		const isExist = watchlist.some((item) => item.imdbID === thisMovie.imdbID);
-		!isExist && setWatchlist((prev) => [...prev, thisMovie]);
+		!isExist
+			? setWatchlist((prev) => [...prev, thisMovie])
+			: deleteMovie(thisMovie.imdbID);
 	};
 
 	const isExistInWatchlist = (id) => {
@@ -56,7 +59,7 @@ const SearchMovie = () => {
 				className="object-cover rounded-lg bg-gray-200 shadow-md h-full w-1/3 "
 			></img>
 			<div className="ml-4 w-full">
-				<h1 className="text-md font-bold border-b border-blue-500 text-center mb-2 pb-2">
+				<h1 className="text-md font-bold border-b border-blue-500 text-center mb-2 pb-3">
 					{item.Title} <span className="">({item.Year})</span>
 				</h1>
 				<div className="flex justify-between items-center gap-2">
