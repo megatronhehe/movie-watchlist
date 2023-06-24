@@ -5,6 +5,7 @@ const Context = createContext();
 const ContextProvider = ({ children }) => {
 	const [data, setData] = useState([]);
 	const [watchlist, setWatchlist] = useState([]);
+	const [selectedTab, setSelectedTab] = useState("");
 
 	const deleteMovie = (id) => {
 		setWatchlist((prev) => prev.filter((item) => item.imdbID !== id));
@@ -12,7 +13,15 @@ const ContextProvider = ({ children }) => {
 
 	return (
 		<Context.Provider
-			value={{ data, watchlist, setData, setWatchlist, deleteMovie }}
+			value={{
+				data,
+				watchlist,
+				selectedTab,
+				setSelectedTab,
+				setData,
+				setWatchlist,
+				deleteMovie,
+			}}
 		>
 			{children}
 		</Context.Provider>

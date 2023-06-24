@@ -2,11 +2,19 @@ import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../context/Context";
 
 const SearchMovie = () => {
-	const { data, setData, watchlist, setWatchlist, deleteMovie } =
-		useContext(Context);
+	const {
+		data,
+		setData,
+		watchlist,
+		setWatchlist,
+		deleteMovie,
+		setSelectedTab,
+	} = useContext(Context);
 
 	const [isSearching, setIsSearching] = useState(false);
 	const [searchInput, setSearchInput] = useState("");
+
+	setSelectedTab("search");
 
 	useEffect(() => {
 		isSearching &&

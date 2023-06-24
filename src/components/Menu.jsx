@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../context/Context";
 
 const Menu = () => {
+	const { setSelectedTab } = useContext(Context);
+
+	setSelectedTab("home");
 	return (
 		<div className="flex flex-col items-center h-full">
 			<div className="max-w-lg w-full shadow-lg pt-8 h-full">

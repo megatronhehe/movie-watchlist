@@ -5,10 +5,13 @@ import { Context } from "../context/Context";
 import CardWatchlist from "./CardWatchlist";
 
 const MyWatchlist = () => {
-	const { watchlist, setWatchlist, deleteMovie } = useContext(Context);
+	const { watchlist, setWatchlist, deleteMovie, setSelectedTab } =
+		useContext(Context);
 
 	const [filter, setFilter] = useState(false);
 	const [allFilter, setAllFilter] = useState(true);
+
+	setSelectedTab("watchlist");
 
 	const markDone = (id) => {
 		setWatchlist((prev) =>
