@@ -34,19 +34,18 @@ const SearchMovie = () => {
 		setIsSearching(true);
 	};
 
+	const isExistInWatchlist = (id) => {
+		return watchlist.some((item) => item.imdbID === id);
+	};
+
 	const addWatchlist = (id) => {
 		const thisMovie = {
 			...data.find((item) => item.imdbID === id),
 			isDone: false,
 		};
-		const isExist = watchlist.some((item) => item.imdbID === thisMovie.imdbID);
-		!isExist
+		!isExistInWatchlist(id)
 			? setWatchlist((prev) => [...prev, thisMovie])
 			: deleteMovie(thisMovie.imdbID);
-	};
-
-	const isExistInWatchlist = (id) => {
-		return watchlist.some((item) => item.imdbID === id);
 	};
 
 	const dataCardsElement = data.map((item) => (
@@ -78,7 +77,7 @@ const SearchMovie = () => {
 				+
 			</button>
 			{isExistInWatchlist(item.imdbID) && (
-				<p className="absolute top-0 left-6 p-2 rounded-b-lg bg-blue-500 text-blue-100 ">
+				<p className="absolute top-0 left-6 p-2 rounded-b-lg bg-blue-500 text-blue-100 text-xs">
 					Listed In Watchlist
 				</p>
 			)}
