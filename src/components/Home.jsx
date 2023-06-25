@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../context/Context";
 
-const Menu = () => {
+const Home = () => {
 	const { setSelectedTab } = useContext(Context);
 
-	setSelectedTab("home");
+	useEffect(() => setSelectedTab("home"), []);
+
 	return (
 		<div className="flex flex-col items-center h-full">
 			<div className="max-w-lg w-full shadow-lg pt-8 h-full">
@@ -32,9 +34,11 @@ const Menu = () => {
 						<p className="text-xs mt-3 w-1/2">
 							type your desired movie title that you want to add to your list!
 						</p>
-						<button className="text-sm font-bold text-right bg-blue-100 text-blue-500 px-3 py-1 rounded-lg">
-							search now
-						</button>
+						<Link to="/search">
+							<button className="text-sm font-bold text-right bg-blue-100 text-blue-500 px-3 py-1 rounded-lg">
+								search now
+							</button>
+						</Link>
 					</div>
 				</section>
 
@@ -43,9 +47,11 @@ const Menu = () => {
 						<h1 className="text-3xl mb-2">My Watchlist</h1>
 					</div>
 					<div className="flex justify-between items-end">
-						<button className="text-sm font-bold text-right bg-blue-500 text-blue-100 px-3 py-1 rounded-lg">
-							my watchlist
-						</button>
+						<Link to="/my-watchlist">
+							<button className="text-sm font-bold text-right bg-blue-500 text-blue-100 px-3 py-1 rounded-lg">
+								my watchlist
+							</button>
+						</Link>
 						<p className="text-xs mt-3 w-1/2">
 							check your personal list of movies here!
 						</p>
@@ -56,4 +62,4 @@ const Menu = () => {
 	);
 };
 
-export default Menu;
+export default Home;

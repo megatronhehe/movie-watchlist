@@ -14,9 +14,8 @@ const SearchMovie = () => {
 	const [isSearching, setIsSearching] = useState(false);
 	const [searchInput, setSearchInput] = useState("");
 
-	setSelectedTab("search");
-
 	useEffect(() => {
+		setSelectedTab("search");
 		isSearching &&
 			fetch(`http://www.omdbapi.com/?s=${searchInput}&apikey=8217fb31`)
 				.then((res) => res.json())

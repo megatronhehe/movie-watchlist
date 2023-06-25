@@ -36,7 +36,7 @@ const CardWatchlist = ({
 			</div>
 			<button
 				onClick={() => markDone(imdbID)}
-				className={`w-32 absolute top-0 left-5 p-1 rounded-b-lg  text-blue-100 shadow-md ${
+				className={`w-32 absolute top-0 left-5 p-1 rounded-b-lg  text-white tracking-wide shadow-md ${
 					isDone ? "bg-lime-500" : "bg-gray-400"
 				}`}
 			>
