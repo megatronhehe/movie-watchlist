@@ -1,5 +1,14 @@
 import React from "react";
 
+import {
+	BsCheckLg,
+	BsTrash3Fill,
+	BsStarFill,
+	BsClockFill,
+	BsFillCollectionPlayFill,
+	BsFillPeopleFill,
+} from "react-icons/bs";
+
 const CardWatchlist = ({
 	imdbID,
 	poster,
@@ -14,22 +23,34 @@ const CardWatchlist = ({
 	deleteMovie,
 }) => {
 	return (
-		<div className="text-blue-700 tracking-wide p-2 mx-5 mb-4  bg-gray-200 rounded-lg shadow-lg text-xs relative">
+		<div className="relative p-2 mx-5 mb-4 text-xs tracking-wide text-blue-700 bg-gray-200 rounded-lg shadow-lg">
 			<div className="flex">
 				<img
 					src={poster}
-					className="object-cover rounded-lg bg-gray-200 shadow-md h-full w-1/3 "
+					className="object-cover w-1/3 h-full bg-gray-200 rounded-lg shadow-md "
 				></img>
-				<div className="ml-4 w-full">
-					<h1 className="text-md font-bold border-b border-blue-500 text-center mb-2 pb-3">
+				<div className="w-full ml-4">
+					<h1 className="pb-3 mb-2 font-bold text-center border-b border-blue-500 text-md">
 						{title} <span className="">({year})</span>
 					</h1>
-					<div className="flex justify-between items-center gap-2">
-						<ul className="">
-							<li className="text-center">{imdbRating}</li>
-							<li>{runtime}</li>
-							<li>{genre}</li>
-							<li>{actors}</li>
+					<div className="flex items-center justify-between gap-2">
+						<ul>
+							<li className="flex items-center justify-center gap-2">
+								<BsStarFill color="orange" />
+								{imdbRating}
+							</li>
+							<li className="flex items-center gap-2">
+								<BsClockFill />
+								{runtime}
+							</li>
+							<li className="flex items-center gap-2">
+								<BsFillCollectionPlayFill />
+								{genre}
+							</li>
+							<li className="flex gap-2">
+								<BsFillPeopleFill />
+								{actors}
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -40,13 +61,19 @@ const CardWatchlist = ({
 					isDone ? "bg-lime-500" : "bg-gray-400"
 				}`}
 			>
-				{isDone ? "watched" : "mark as watched"}
+				{isDone ? (
+					<p className="flex items-center justify-center gap-2">
+						watched <BsCheckLg />
+					</p>
+				) : (
+					"mark as watched"
+				)}
 			</button>
 			<button
 				onClick={() => deleteMovie(imdbID)}
-				className="absolute top-0 right-2 py-2 px-3 rounded-b-lg bg-red-500 text-blue-100 shadow-md"
+				className="absolute top-0 px-3 py-2 text-blue-100 bg-red-400 rounded-b-lg shadow-md right-2"
 			>
-				X
+				<BsTrash3Fill size="15" />
 			</button>
 		</div>
 	);

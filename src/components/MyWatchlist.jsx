@@ -4,6 +4,8 @@ import { Context } from "../context/Context";
 
 import CardWatchlist from "./CardWatchlist";
 
+import { BsClipboardCheck, BsClipboardX } from "react-icons/bs";
+
 const MyWatchlist = () => {
 	const { watchlist, setWatchlist, deleteMovie, setSelectedTab } =
 		useContext(Context);
@@ -67,21 +69,23 @@ const MyWatchlist = () => {
 
 	return (
 		<div className="flex flex-col items-center">
-			<div className="max-w-lg w-full shadow-lg pt-8 h-full">
-				<section className="text-center text-blue-100 tracking-wide p-2 mx-5 mb-4 bg-blue-500 rounded-lg shadow-lg">
+			<div className="w-full h-full max-w-lg pt-8 shadow-lg">
+				<section className="p-2 mx-5 mb-4 tracking-wide text-center text-blue-100 bg-blue-500 rounded-lg shadow-lg">
 					My Watch List
 				</section>
 
-				<section className="flex px-5 gap-5 text-white text-sm">
-					<div className="bg-lime-500 w-1/2 h-24 rounded-lg shadow-md flex flex-col items-center justify-center">
-						<h1>Watched Count</h1>
+				<section className="flex gap-5 px-5 text-sm text-white">
+					<div className="flex flex-col items-center justify-center w-1/2 h-24 rounded-lg shadow-md bg-lime-500">
+						<BsClipboardCheck size="25" />
+						<h1 className="mt-2">Watched Count</h1>
 						<p className="text-xl font-bold">
 							{watchedMoviesCount}
 							<span className="text-xs">/{watchlist.length}</span>
 						</p>
 					</div>
-					<div className="bg-gray-300 w-1/2 h-24 rounded-lg shadow-md flex flex-col items-center justify-center">
-						<h1 className="drop-shadow-md">Unwatched Count</h1>
+					<div className="flex flex-col items-center justify-center w-1/2 h-24 bg-gray-300 rounded-lg shadow-md">
+						<BsClipboardX size="25" />
+						<h1 className="mt-2 drop-shadow-md">Unwatched Count</h1>
 						<p className="text-xl font-bold drop-shadow-md">
 							{unwatchedMoviesCount}
 							<span className="text-xs">/{watchlist.length}</span>
@@ -90,11 +94,11 @@ const MyWatchlist = () => {
 				</section>
 
 				<nav className="mt-4">
-					<ul className="text-blue-600 text-sm flex justify-center items-center mb-4 ">
-						<li className="bg-gray-200 py-1 px-3 rounded-l-xl">
+					<ul className="flex items-center justify-center mb-4 text-sm text-blue-600 ">
+						<li className="px-3 py-1 bg-gray-200 rounded-l-xl">
 							<button onClick={() => setAllFilter(true)}>all</button>
 						</li>
-						<li className="bg-gray-200 py-1 px-3">
+						<li className="px-3 py-1 bg-gray-200">
 							<button
 								onClick={() => {
 									setFilter(true);
@@ -104,7 +108,7 @@ const MyWatchlist = () => {
 								watched
 							</button>
 						</li>
-						<li className="bg-gray-200 py-1 px-3 rounded-r-xl">
+						<li className="px-3 py-1 bg-gray-200 rounded-r-xl">
 							<button
 								onClick={() => {
 									setFilter(false);
@@ -126,7 +130,7 @@ const MyWatchlist = () => {
 						)
 					) : (
 						<Link to="/search" className="flex justify-center">
-							<p className="text-center w-1/2 mb-8 text-gray-400 text-sm">
+							<p className="w-1/2 mb-8 text-sm text-center text-gray-400">
 								your watchlist is empty! go start and search for a movie or a
 								show <span className="font-bold">here</span>
 							</p>

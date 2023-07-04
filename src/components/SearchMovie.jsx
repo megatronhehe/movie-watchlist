@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../context/Context";
 
+import {
+	BsSearch,
+	BsFillClipboard2CheckFill,
+	BsStarFill,
+	BsClockFill,
+	BsFillCollectionPlayFill,
+	BsFillPeopleFill,
+	BsEmojiFrown,
+} from "react-icons/bs";
+
 const SearchMovie = () => {
 	const {
 		data,
@@ -76,10 +86,22 @@ const SearchMovie = () => {
 				</h1>
 				<div className="flex items-center justify-between gap-2">
 					<ul className="">
-						<li className="text-center">{item.imdbRating}</li>
-						<li>{item.Runtime}</li>
-						<li>{item.Genre}</li>
-						<li>{item.Actors}</li>
+						<li className="flex items-center justify-center gap-2">
+							<BsStarFill color="orange" />
+							{item.imdbRating}
+						</li>
+						<li className="flex items-center gap-2">
+							<BsClockFill />
+							{item.Runtime}
+						</li>
+						<li className="flex items-center gap-2">
+							<BsFillCollectionPlayFill />
+							{item.Genre}
+						</li>
+						<li className="flex gap-2">
+							<BsFillPeopleFill />
+							{item.Actors}
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -90,8 +112,8 @@ const SearchMovie = () => {
 				+
 			</button>
 			{isExistInWatchlist(item.imdbID) && (
-				<p className="absolute top-0 p-2 text-xs text-blue-100 bg-blue-500 rounded-b-lg left-6">
-					Listed In Watchlist
+				<p className="absolute top-0 flex items-center gap-2 p-2 text-xs text-blue-100 bg-blue-500 rounded-b-lg left-4">
+					Listed In Watchlist <BsFillClipboard2CheckFill />
 				</p>
 			)}
 		</div>
@@ -111,9 +133,9 @@ const SearchMovie = () => {
 					/>
 					<button
 						onClick={getMovieData}
-						className="w-12 ml-2 bg-blue-200 rounded-lg"
+						className="flex items-center justify-center w-12 ml-2 bg-blue-200 rounded-lg"
 					>
-						Q
+						<BsSearch />
 					</button>
 				</form>
 				<section>
@@ -123,8 +145,8 @@ const SearchMovie = () => {
 						dataCardsElement
 					)}
 					{error && (
-						<p className="m-12 text-center text-gray-400">
-							something went wrong. please search something else.
+						<p className="flex items-center justify-center gap-2 m-12 text-center text-gray-400">
+							something went wrong. please try again <BsEmojiFrown />
 						</p>
 					)}
 				</section>
