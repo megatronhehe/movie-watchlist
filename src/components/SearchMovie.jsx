@@ -13,32 +13,38 @@ const SearchMovie = () => {
 
 	const [isSearching, setIsSearching] = useState(false);
 	const [searchInput, setSearchInput] = useState("");
+	const [error, setError] = useState(false);
+
+	const getMovieData = async (e) => {
+		e.preventDefault();
+		setError(false);
+		setIsSearching(true);
+		setData([]);
+		try {
+			const res = await fetch(
+				`http://www.omdbapi.com/?s=${searchInput}&apikey=8217fb31`
+			);
+			const data = await res.json();
+			for (const item of data.Search) {
+				const res = await fetch(
+					`http://www.omdbapi.com/?i=${item.imdbID}&apikey=8217fb31`
+				);
+				const movieData = await res.json();
+				setData((prev) => [...prev, movieData]);
+			}
+		} catch (err) {
+			setError(true);
+		}
+		setIsSearching(false);
+	};
 
 	useEffect(() => {
 		setSelectedTab("search");
-		isSearching &&
-			fetch(`http://www.omdbapi.com/?s=${searchInput}&apikey=8217fb31`)
-				.then((res) => res.json())
-				.then((data) =>
-					data.Search.forEach((item) =>
-						fetch(`http://www.omdbapi.com/?i=${item.imdbID}&apikey=8217fb31`)
-							.then((res) => res.json())
-							.then((data) => setData((prev) => [...prev, data]))
-							.catch((err) => console.log(err))
-					)
-				)
-				.catch((err) => console.log(err));
-		setIsSearching(false);
-	}, [isSearching]);
+	}, []);
 
 	const handleChange = (event) => {
 		const { value } = event.target;
 		setSearchInput(value);
-	};
-
-	const handleSearch = () => {
-		setData([]);
-		setIsSearching(true);
 	};
 
 	const isExistInWatchlist = (id) => {
@@ -58,17 +64,17 @@ const SearchMovie = () => {
 	const dataCardsElement = data.map((item) => (
 		<div
 			key={item.imdbID}
-			className="flex text-blue-700 tracking-wide p-2 mx-5 mb-4  bg-gray-200 rounded-lg shadow-lg text-xs relative"
+			className="relative flex p-2 mx-5 mb-4 text-xs tracking-wide text-blue-700 bg-gray-200 rounded-lg shadow-lg"
 		>
 			<img
 				src={item.Poster}
-				className="object-cover rounded-lg bg-gray-200 shadow-md h-full w-1/3 "
+				className="object-cover w-1/3 h-full bg-gray-200 rounded-lg shadow-md "
 			></img>
-			<div className="ml-4 w-full">
-				<h1 className="text-md font-bold border-b border-blue-500 text-center mb-2 pb-3">
+			<div className="w-full ml-4">
+				<h1 className="pb-3 mb-2 font-bold text-center border-b border-blue-500 text-md">
 					{item.Title} <span className="">({item.Year})</span>
 				</h1>
-				<div className="flex justify-between items-center gap-2">
+				<div className="flex items-center justify-between gap-2">
 					<ul className="">
 						<li className="text-center">{item.imdbRating}</li>
 						<li>{item.Runtime}</li>
@@ -79,12 +85,12 @@ const SearchMovie = () => {
 			</div>
 			<button
 				onClick={() => addWatchlist(item.imdbID)}
-				className="bg-gray-100 px-2 rounded-lg ml-2 text-blue-500 text-xl border border-blue-500"
+				className="px-2 ml-2 text-xl text-blue-500 bg-gray-100 border border-blue-500 rounded-lg"
 			>
 				+
 			</button>
 			{isExistInWatchlist(item.imdbID) && (
-				<p className="absolute top-0 left-6 p-2 rounded-b-lg bg-blue-500 text-blue-100 text-xs">
+				<p className="absolute top-0 p-2 text-xs text-blue-100 bg-blue-500 rounded-b-lg left-6">
 					Listed In Watchlist
 				</p>
 			)}
@@ -93,10 +99,10 @@ const SearchMovie = () => {
 
 	return (
 		<div className="flex flex-col items-center">
-			<div className="max-w-lg w-full shadow-lg pt-8 h-full">
-				<section className="flex text-blue-500 tracking-wide p-2 mx-5 mb-8 bg-blue-300 rounded-lg shadow-lg">
+			<div className="w-full h-full max-w-lg pt-8 shadow-lg">
+				<form className="flex p-2 mx-5 mb-8 tracking-wide text-blue-500 bg-blue-300 rounded-lg shadow-lg">
 					<input
-						className="w-full rounded-lg px-4 py-2"
+						className="w-full px-4 py-2 rounded-lg"
 						type="text"
 						onChange={handleChange}
 						placeholder="type here to search"
@@ -104,13 +110,24 @@ const SearchMovie = () => {
 						value={searchInput}
 					/>
 					<button
-						onClick={handleSearch}
-						className="bg-blue-200 w-12 rounded-lg ml-2"
+						onClick={getMovieData}
+						className="w-12 ml-2 bg-blue-200 rounded-lg"
 					>
 						Q
 					</button>
+				</form>
+				<section>
+					{isSearching ? (
+						<p className="m-12 text-center text-gray-400">loading . . .</p>
+					) : (
+						dataCardsElement
+					)}
+					{error && (
+						<p className="m-12 text-center text-gray-400">
+							something went wrong. please search something else.
+						</p>
+					)}
 				</section>
-				<section className="">{dataCardsElement}</section>
 			</div>
 		</div>
 	);
