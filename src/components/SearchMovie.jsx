@@ -102,6 +102,7 @@ const SearchMovie = () => {
 							<BsFillPeopleFill />
 							{item.Actors}
 						</li>
+						<li className="pt-2 mt-2 border-t border-gray-400">{item.Plot}</li>
 					</ul>
 				</div>
 			</div>
@@ -122,7 +123,7 @@ const SearchMovie = () => {
 	return (
 		<div className="flex flex-col items-center">
 			<div className="w-full h-full max-w-lg pt-8 shadow-lg">
-				<form className="flex p-2 mx-5 mb-8 tracking-wide text-blue-500 bg-blue-300 rounded-lg shadow-lg">
+				<form className="flex p-2 mx-5 mb-4 tracking-wide text-blue-500 bg-blue-300 rounded-lg shadow-lg">
 					<input
 						className="w-full px-4 py-2 rounded-lg"
 						type="text"
@@ -138,6 +139,7 @@ const SearchMovie = () => {
 						<BsSearch />
 					</button>
 				</form>
+
 				<section>
 					{isSearching ? (
 						<p className="m-12 text-center text-gray-400">loading . . .</p>

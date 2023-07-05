@@ -18,6 +18,7 @@ const CardWatchlist = ({
 	runtime,
 	genre,
 	actors,
+	plot,
 	isDone,
 	markDone,
 	deleteMovie,
@@ -51,6 +52,7 @@ const CardWatchlist = ({
 								<BsFillPeopleFill />
 								{actors}
 							</li>
+							<li className="pt-2 mt-2 border-t border-gray-400">{plot}</li>
 						</ul>
 					</div>
 				</div>

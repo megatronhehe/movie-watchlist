@@ -44,6 +44,7 @@ const MyWatchlist = () => {
 			runtime={item.Runtime}
 			genre={item.Genre}
 			actors={item.Actors}
+			plot={item.Plot}
 			isDone={item.isDone}
 			markDone={markDone}
 			deleteMovie={deleteMovie}
@@ -61,6 +62,7 @@ const MyWatchlist = () => {
 			runtime={item.Runtime}
 			genre={item.Genre}
 			actors={item.Actors}
+			plot={item.Plot}
 			isDone={item.isDone}
 			markDone={markDone}
 			deleteMovie={deleteMovie}
