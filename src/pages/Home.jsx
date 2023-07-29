@@ -17,7 +17,7 @@ const Home = () => {
 	useEffect(() => setSelectedTab("home"), []);
 
 	return (
-		<div className="p-4">
+		<>
 			<section className="p-8 my-8 text-blue-100 bg-blue-500 rounded-lg ">
 				<h1 className="text-2xl">MeWatchThings App</h1>
 				<p className="mt-8 text-sm">
@@ -86,7 +86,7 @@ const Home = () => {
 					</div>
 				</div>
 			</section>
-		</div>
+		</>
 	);
 };
 

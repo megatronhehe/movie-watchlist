@@ -1,10 +1,10 @@
 import React from "react";
 import { Link, Routes, Route } from "react-router-dom";
 
-import Home from "./components/Home";
+import Home from "./pages/Home";
 import Header from "./components/Header";
-import SearchMovie from "./components/SearchMovie";
-import MyWatchlist from "./components/MyWatchlist";
+import SearchMovie from "./pages/SearchMovie";
+import MyWatchlist from "./pages/MyWatchlist";
 import Container from "./components/Container";
 // import Footer from "./components/Footer";
 

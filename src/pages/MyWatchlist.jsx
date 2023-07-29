@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../context/Context";
 
-import CardWatchlist from "./CardWatchlist";
+import CardWatchlist from "../components/CardWatchlist";
 
 import { BsClipboardCheck, BsClipboardX } from "react-icons/bs";
 
