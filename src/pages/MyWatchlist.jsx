@@ -4,7 +4,13 @@ import { Context } from "../context/Context";
 
 import CardWatchlist from "../components/CardWatchlist";
 
-import { BsEye, BsCheck, BsX, BsFillGrid3X3GapFill } from "react-icons/bs";
+import {
+	BsEye,
+	BsCheck,
+	BsX,
+	BsFillGrid3X3GapFill,
+	BsClipboardCheckFill,
+} from "react-icons/bs";
 
 const MyWatchlist = () => {
 	const { watchlist, setWatchlist, deleteMovie, setSelectedTab } =
@@ -72,6 +78,10 @@ const MyWatchlist = () => {
 		/>
 	));
 
+	const countPercentage = (done, total) => {
+		return ((100 * done) / total).toFixed(1);
+	};
+
 	return (
 		<div className="">
 			<section className="p-2 mt-8 mb-2 tracking-wide text-center text-blue-100 bg-blue-500 rounded-lg ">
@@ -101,9 +111,17 @@ const MyWatchlist = () => {
 						<span className="text-xs">/{watchlist.length}</span>
 					</p>
 				</div>
-				<div className="flex flex-col items-center justify-center w-1/2 h-24 bg-gray-300 rounded-lg shadow-md">
-					<p>Completion</p>
-					<p>x %</p>
+				<div className="flex flex-col items-center justify-center w-1/2 h-24 bg-blue-300 rounded-lg shadow-md">
+					<div className="flex text-2xl">
+						<BsClipboardCheckFill />
+					</div>
+					<h1 className="mt-2 drop-shadow-md">Progress</h1>
+					<p className="text-xl font-bold drop-shadow-md">
+						{watchlist.length < 1
+							? 0
+							: countPercentage(watchedMoviesCount, watchlist.length)}{" "}
+						%
+					</p>
 				</div>
 			</section>
 
