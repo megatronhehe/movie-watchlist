@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../context/Context";
 
-import { FaSearch, FaBookmark, FaHeart, FaHeartBroken } from "react-icons/fa";
+import { FaSearch, FaBookmark, FaHeart, FaClipboardList } from "react-icons/fa";
 
 const Home = () => {
 	const { setSelectedTab } = useContext(Context);
@@ -66,12 +66,15 @@ const Home = () => {
 								favorite!
 							</p>
 						</div>
-						<div className="relative flex flex-col w-1/2 p-4 text-gray-500 bg-gray-300 rounded-lg">
+						<div className="relative flex flex-col w-1/2 p-4 text-white bg-blue-300 rounded-lg">
 							<h2 className="flex justify-between gap-4 text-lg font-semibold ">
-								or not so much..
+								Personal Collection
 							</h2>
-							<FaHeartBroken className="absolute text-2xl top-4 right-4" />
-							<p className="mt-4 text-sm">keep track on your whole</p>
+							<FaClipboardList className="absolute text-2xl top-4 right-4" />
+							<p className="mt-4 text-sm">
+								have your personal list of movies or shows collection in a
+								single app
+							</p>
 						</div>
 					</div>
 				</div>
