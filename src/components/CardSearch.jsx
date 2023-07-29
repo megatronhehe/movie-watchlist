@@ -34,7 +34,7 @@ const CardSearch = ({
 		<div className="relative flex gap-2 overflow-hidden text-gray-200 rounded-xl">
 			<img src={poster} alt="" className="w-full " />
 			{toggleShow && (
-				<div className="absolute w-full h-full p-4 overflow-y-scroll text-sm bg-black bg-opacity-80">
+				<div className="absolute w-full h-full p-4 overflow-auto text-sm bg-black bg-opacity-80">
 					<div className="text-center ">
 						<h1 className="text-xl font-semibold">{title}</h1>
 						<p className="pb-2 border-b border-gray-300">({year})</p>

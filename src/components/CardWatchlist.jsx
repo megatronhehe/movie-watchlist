@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
 import {
-	BsBookmarkPlusFill,
-	BsBookmarkCheckFill,
 	BsStarFill,
 	BsClock,
 	BsFilm,
@@ -14,6 +12,7 @@ import {
 	BsFillTrashFill,
 	BsEyeFill,
 	BsCheckCircleFill,
+	BsXCircleFill,
 } from "react-icons/bs";
 
 import { FaHeart, FaRegHeart, FaHeartBroken } from "react-icons/fa";
@@ -38,13 +37,13 @@ const CardWatchlist = ({
 	deleteMovie,
 }) => {
 	const [toggleShow, setToggleShow] = useState(false);
-	const [toggleOptions, setToggleOptions] = useState(false);
+	const [toggleDelete, setToggleDelete] = useState(false);
 
 	return (
 		<div className="relative flex gap-2 overflow-hidden text-gray-200 rounded-xl">
 			<img src={poster} alt="" className="w-full " />
 			{toggleShow && (
-				<div className="absolute w-full h-full p-4 overflow-y-scroll text-sm bg-black bg-opacity-80">
+				<div className="absolute w-full h-full p-4 overflow-auto text-sm bg-black bg-opacity-80">
 					<div className="text-center ">
 						<h1 className="text-xl font-semibold">{title}</h1>
 						<p className="pb-2 border-b border-gray-300">({year})</p>
@@ -82,14 +81,33 @@ const CardWatchlist = ({
 				</div>
 			)}
 
+			<button
+				onClick={() => setToggleShow((prev) => !prev)}
+				className="absolute p-2 text-4xl text-white bg-gray-200 rounded-lg shadow-lg bg-opacity-40 left-2 top-2"
+			>
+				{toggleShow ? <BsChevronUp /> : <BsChevronDown />}
+			</button>
+
 			{!toggleShow && (
-				<div className="absolute flex flex-col gap-4 text-4xl top-2 right-2">
-					<button
-						onClick={() => deleteMovie(imdbID)}
-						className="flex items-center justify-center text-gray-700 bg-red-400 rounded-full w-14 h-14 bg-opacity-80"
-					>
-						<BsFillTrashFill />
-					</button>
+				<div className="absolute flex flex-col items-end gap-4 text-4xl top-2 right-2">
+					<div className="flex flex-row-reverse gap-4 bg-gray-700 rounded-full bg-opacity-80">
+						<button
+							onClick={() => setToggleDelete((prev) => !prev)}
+							className={`flex items-center justify-center text-gray-700  rounded-full w-14 h-14 bg-opacity-80 ${
+								toggleDelete ? "bg-gray-200" : "bg-red-400"
+							}`}
+						>
+							{toggleDelete ? <BsXCircleFill /> : <BsFillTrashFill />}
+						</button>
+						{toggleDelete && (
+							<button
+								onClick={() => deleteMovie(imdbID)}
+								className="flex items-center justify-center text-gray-700 bg-red-400 rounded-full w-14 h-14 bg-opacity-80"
+							>
+								<BsCheckCircleFill />
+							</button>
+						)}
+					</div>
 					<button
 						onClick={() => markFavorite(imdbID)}
 						className="flex items-center justify-center text-red-400 bg-gray-700 rounded-full w-14 h-14 bg-opacity-80"
@@ -106,13 +124,6 @@ const CardWatchlist = ({
 					</button>
 				</div>
 			)}
-
-			<button
-				onClick={() => setToggleShow((prev) => !prev)}
-				className="absolute p-2 text-4xl text-white bg-gray-200 rounded-lg shadow-lg bg-opacity-40 left-2 top-2"
-			>
-				{toggleShow ? <BsChevronUp /> : <BsChevronDown />}
-			</button>
 
 			{!toggleShow && (
 				<div className="absolute bottom-0 flex items-center justify-between w-full p-2">

@@ -2,14 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../context/Context";
 
-import {
-	FaTasks,
-	FaSearch,
-	FaBookmark,
-	FaHeart,
-	FaHeartBroken,
-} from "react-icons/fa";
-import { BiSolidMoviePlay } from "react-icons/bi";
+import { FaSearch, FaBookmark, FaHeart, FaHeartBroken } from "react-icons/fa";
 
 const Home = () => {
 	const { setSelectedTab } = useContext(Context);
@@ -78,10 +71,7 @@ const Home = () => {
 								or not so much..
 							</h2>
 							<FaHeartBroken className="absolute text-2xl top-4 right-4" />
-							<p className="mt-4 text-sm">
-								tag the movies or shows you watched as, personally not that
-								good...
-							</p>
+							<p className="mt-4 text-sm">keep track on your whole</p>
 						</div>
 					</div>
 				</div>
