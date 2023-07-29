@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
-	BsCheckLg,
-	BsTrash3Fill,
+	BsBookmarkPlusFill,
+	BsBookmarkCheckFill,
 	BsStarFill,
-	BsClockFill,
-	BsFillCollectionPlayFill,
+	BsClock,
+	BsFilm,
 	BsFillPeopleFill,
+	BsFillTrophyFill,
+	BsCalendar3,
+	BsChevronDown,
+	BsChevronUp,
+	BsFillTrashFill,
+	BsEyeFill,
+	BsCheckCircleFill,
 } from "react-icons/bs";
+
+import { FaHeart, FaRegHeart, FaHeartBroken } from "react-icons/fa";
 
 const CardWatchlist = ({
 	imdbID,
@@ -19,12 +28,107 @@ const CardWatchlist = ({
 	genre,
 	actors,
 	plot,
+	awards,
+	released,
+	type,
 	isDone,
+	isFavorite,
+	markFavorite,
 	markDone,
 	deleteMovie,
 }) => {
+	const [toggleShow, setToggleShow] = useState(false);
+	const [toggleOptions, setToggleOptions] = useState(false);
+
 	return (
-		<div className="relative p-2 mx-5 mb-4 text-xs tracking-wide text-blue-700 bg-gray-200 rounded-lg shadow-lg">
+		<div className="relative flex gap-2 overflow-hidden text-gray-200 rounded-xl">
+			<img src={poster} alt="" className="w-full " />
+			{toggleShow && (
+				<div className="absolute w-full h-full p-4 overflow-y-scroll text-sm bg-black bg-opacity-80">
+					<div className="text-center ">
+						<h1 className="text-xl font-semibold">{title}</h1>
+						<p className="pb-2 border-b border-gray-300">({year})</p>
+					</div>
+					<ul className="relative flex flex-col gap-3 pb-3 my-3 border-b">
+						<li className="font-semibold">{type}</li>
+
+						<li className="flex items-center gap-3">
+							<BsClock />
+							{runtime}
+						</li>
+						<li className="flex items-center gap-3">
+							<BsFilm />
+							{genre}
+						</li>
+						<li className="flex items-center gap-3">
+							<BsFillPeopleFill />
+							{actors}
+						</li>
+						<li className="flex items-center gap-3">
+							<BsFillTrophyFill />
+							{awards}
+						</li>
+						<li className="flex items-center gap-3">
+							<BsCalendar3 />
+							{released}
+						</li>
+						<p className="absolute top-0 right-0 flex items-center gap-2 p-2 font-semibold text-white bg-gray-700 rounded-md bg-opacity-80">
+							<BsStarFill className="text-yellow-400" />
+							{imdbRating}
+						</p>
+					</ul>
+
+					<div>{plot}</div>
+				</div>
+			)}
+
+			{!toggleShow && (
+				<div className="absolute flex flex-col gap-4 text-4xl top-2 right-2">
+					<button
+						onClick={() => deleteMovie(imdbID)}
+						className="flex items-center justify-center text-gray-700 bg-red-400 rounded-full w-14 h-14 bg-opacity-80"
+					>
+						<BsFillTrashFill />
+					</button>
+					<button
+						onClick={() => markFavorite(imdbID)}
+						className="flex items-center justify-center text-red-400 bg-gray-700 rounded-full w-14 h-14 bg-opacity-80"
+					>
+						{isFavorite ? <FaHeart /> : <FaRegHeart />}
+					</button>
+					<button
+						onClick={() => markDone(imdbID)}
+						className={`flex items-center justify-center   rounded-full w-14 h-14 bg-opacity-80 ${
+							isDone ? "bg-green-400" : "bg-gray-700"
+						}`}
+					>
+						{isDone ? <BsCheckCircleFill /> : <BsEyeFill />}
+					</button>
+				</div>
+			)}
+
+			<button
+				onClick={() => setToggleShow((prev) => !prev)}
+				className="absolute p-2 text-4xl text-white bg-gray-200 rounded-lg shadow-lg bg-opacity-40 left-2 top-2"
+			>
+				{toggleShow ? <BsChevronUp /> : <BsChevronDown />}
+			</button>
+
+			{!toggleShow && (
+				<div className="absolute bottom-0 flex items-center justify-between w-full p-2">
+					<p className="flex items-center gap-2 p-2 text-xl font-semibold text-white bg-gray-700 rounded-md bg-opacity-80">
+						<BsStarFill className="text-yellow-400" />
+						{imdbRating}
+					</p>
+					<p className="px-4 py-2 text-sm bg-black rounded-full">{type}</p>
+				</div>
+			)}
+		</div>
+	);
+};
+
+{
+	/* <div className="relative p-2 mx-5 mb-4 text-xs tracking-wide text-blue-700 bg-gray-200 rounded-lg shadow-lg">
 			<div className="flex">
 				<img
 					src={poster}
@@ -77,8 +181,7 @@ const CardWatchlist = ({
 			>
 				<BsTrash3Fill size="15" />
 			</button>
-		</div>
-	);
-};
+		</div> */
+}
 
 export default CardWatchlist;

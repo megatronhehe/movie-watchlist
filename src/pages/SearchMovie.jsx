@@ -59,6 +59,7 @@ const SearchMovie = () => {
 		const thisMovie = {
 			...data.find((item) => item.imdbID === id),
 			isDone: false,
+			isFavorite: false,
 		};
 		!isExistInWatchlist(id)
 			? setWatchlist((prev) => [...prev, thisMovie])
@@ -68,6 +69,7 @@ const SearchMovie = () => {
 	const dataCardsElement = data.map((item) => (
 		<CardSearch
 			key={item.imdbID}
+			imdbID={item.imdbID}
 			poster={item.Poster}
 			title={item.Title}
 			year={item.Year}
@@ -76,7 +78,6 @@ const SearchMovie = () => {
 			genre={item.Genre}
 			actors={item.Actors}
 			plot={item.Plot}
-			imdbID={item.imdbID}
 			awards={item.Awards}
 			released={item.Released}
 			type={item.Type}
@@ -84,8 +85,6 @@ const SearchMovie = () => {
 			isExistInWatchlist={isExistInWatchlist}
 		/>
 	));
-
-	console.log(data);
 
 	return (
 		<>

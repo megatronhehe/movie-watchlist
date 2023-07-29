@@ -81,6 +81,7 @@ const CardSearch = ({
 					<BsBookmarkPlusFill />
 				)}
 			</button>
+
 			<button
 				onClick={() => setToggleShow((prev) => !prev)}
 				className="absolute p-2 text-4xl text-white bg-gray-200 rounded-lg shadow-lg bg-opacity-40 left-2 top-2"
