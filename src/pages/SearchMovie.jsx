@@ -62,7 +62,7 @@ const SearchMovie = () => {
 			isFavorite: false,
 		};
 		!isExistInWatchlist(id)
-			? setWatchlist((prev) => [...prev, thisMovie])
+			? setWatchlist((prev) => [thisMovie, ...prev])
 			: deleteMovie(thisMovie.imdbID);
 	};
 
