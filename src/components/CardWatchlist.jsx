@@ -15,7 +15,7 @@ import {
 	BsXCircleFill,
 } from "react-icons/bs";
 
-import { FaHeart, FaRegHeart, FaHeartBroken } from "react-icons/fa";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 const CardWatchlist = ({
 	imdbID,

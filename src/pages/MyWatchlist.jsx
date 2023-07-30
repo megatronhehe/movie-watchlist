@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../context/Context";
 
+import ListWatchlist from "../components/ListWatchlist";
 import CardWatchlist from "../components/CardWatchlist";
 
 import {
@@ -12,11 +13,14 @@ import {
 	BsClipboardCheckFill,
 } from "react-icons/bs";
 
+import { HiSquare2Stack, HiMiniListBullet } from "react-icons/hi2";
+
 const MyWatchlist = () => {
 	const { watchlist, setWatchlist, deleteMovie, setSelectedTab } =
 		useContext(Context);
 
 	const [filter, setFilter] = useState("true");
+	const [isViewCards, setIsViewCards] = useState(true);
 
 	useEffect(() => {
 		setSelectedTab("watchlist");
@@ -78,9 +82,40 @@ const MyWatchlist = () => {
 		/>
 	));
 
+	const listElement = filteredMoviesArray.map((item) => (
+		<ListWatchlist
+			key={item.imdbID}
+			imdbID={item.imdbID}
+			poster={item.Poster}
+			title={item.Title}
+			year={item.Year}
+			imdbRating={item.imdbRating}
+			runtime={item.Runtime}
+			genre={item.Genre}
+			actors={item.Actors}
+			plot={item.Plot}
+			awards={item.Awards}
+			released={item.Released}
+			type={item.Type}
+			isDone={item.isDone}
+			isFavorite={item.isFavorite}
+			isBad={item.isBad}
+			markDone={markDone}
+			markFavorite={markFavorite}
+			deleteMovie={deleteMovie}
+		/>
+	));
+
 	const countPercentage = (done, total) => {
 		return ((100 * done) / total).toFixed(1);
 	};
+
+	const CardsContainer = ({ children }) => (
+		<div className="grid gap-4 sm:grid-cols-2">{children}</div>
+	);
+	const ListContainer = ({ children }) => (
+		<div className="flex flex-col gap-4">{children}</div>
+	);
 
 	return (
 		<div className="">
@@ -125,26 +160,41 @@ const MyWatchlist = () => {
 				</div>
 			</section>
 
-			<section className="flex items-center my-8 text-gray-500">
-				<p className="pr-4 mr-4 border-r border-gray-400">
-					<BsFillGrid3X3GapFill />
-				</p>
-				<ul className="flex gap-8 ">
-					<li>
-						<button onClick={() => setFilter("all")}>all</button>
-					</li>
-					<li>
-						<button onClick={() => setFilter("true")}>watched</button>
-					</li>
-					<li>
-						<button onClick={() => setFilter("false")}>not watched</button>
-					</li>
-				</ul>
+			<section className="flex flex-col justify-between gap-4 px-2 my-8 text-gray-500 sm:items-center sm:flex-row">
+				<div className="flex items-center">
+					<p className="pr-4 mr-4 border-r border-gray-400">
+						<BsFillGrid3X3GapFill />
+					</p>
+					<ul className="flex gap-8 ">
+						<li>
+							<button onClick={() => setFilter("all")}>all</button>
+						</li>
+						<li>
+							<button onClick={() => setFilter("true")}>watched</button>
+						</li>
+						<li>
+							<button onClick={() => setFilter("false")}>not watched</button>
+						</li>
+					</ul>
+				</div>
+				<button
+					onClick={() => setIsViewCards((prev) => !prev)}
+					className="flex items-center w-24"
+				>
+					<p className="pr-4 mr-4 border-r border-gray-400">
+						{isViewCards ? <HiSquare2Stack /> : <HiMiniListBullet />}
+					</p>
+					{isViewCards ? "cards" : "list"}
+				</button>
 			</section>
 
 			<section className="mt-4">
 				{watchlist.length > 0 ? (
-					<div className="grid gap-4 sm:grid-cols-2">{cardsElement}</div>
+					isViewCards ? (
+						<CardsContainer>{cardsElement}</CardsContainer>
+					) : (
+						<ListContainer>{listElement}</ListContainer>
+					)
 				) : (
 					<Link to="/search" className="flex justify-center">
 						<p className="w-1/2 mt-16 text-sm text-center text-gray-400">
