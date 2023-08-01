@@ -107,6 +107,11 @@ const SearchMovie = () => {
 			</form>
 
 			<section>
+				{data.length < 1 && !isSearching && (
+					<p className="m-12 text-2xl text-center text-gray-400">
+						Start by searching your movies here!
+					</p>
+				)}
 				{isSearching ? (
 					<p className="m-12 text-center text-gray-400">loading . . .</p>
 				) : (
