@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import PosterModal from "./PosterModal";
+
 import {
 	BsStarFill,
 	BsClock,
@@ -13,6 +15,7 @@ import {
 	BsEyeFill,
 	BsCheckCircleFill,
 	BsXCircleFill,
+	BsImage,
 } from "react-icons/bs";
 
 import { FaHeart, FaRegHeart } from "react-icons/fa";
@@ -34,13 +37,15 @@ const ListWatchlist = ({
 	awards,
 	released,
 	plot,
+	poster,
 }) => {
 	const [toggleDelete, setToggleDelete] = useState(false);
 	const [toggleInfo, setToggleInfo] = useState(false);
+	const [togglePosterModal, setTogglePosterModal] = useState(false);
 
 	return (
-		<div className="shadow-md">
-			<div className="flex items-center justify-between p-2 text-gray-500 bg-gray-100 rounded-t-lg">
+		<div className="text-gray-500 shadow-md">
+			<div className="flex items-center justify-between p-2 bg-gray-100 rounded-t-lg">
 				<h1 className="w-1/2">{title}</h1>
 				<div className="flex justify-end w-1/2 gap-2">
 					<div className="flex gap-2">
@@ -108,10 +113,18 @@ const ListWatchlist = ({
 						<li className="my-2 border-b"></li>
 						<li className="flex items-center gap-2">{plot}</li>
 					</ul>
-					<p className="absolute flex items-center gap-1 p-1 text-sm text-white bg-gray-500 rounded-md right-2 top-2">
-						<BsStarFill className="text-yellow-300" />
-						{imdbRating}
-					</p>
+					<div className="absolute right-2 top-2">
+						<p className="flex items-center gap-1 p-1 mb-2 text-sm text-white bg-gray-500 rounded-md">
+							<BsStarFill className="text-yellow-300" />
+							{imdbRating}
+						</p>
+						<p
+							onClick={() => setTogglePosterModal(true)}
+							className="flex items-center justify-center w-10 h-10 text-xl text-gray-300 bg-white rounded-full"
+						>
+							<BsImage />
+						</p>
+					</div>
 				</div>
 			)}
 			<div
@@ -120,6 +133,12 @@ const ListWatchlist = ({
 			>
 				{toggleInfo ? <BsChevronUp /> : <BsChevronDown />}
 			</div>
+			{togglePosterModal && (
+				<PosterModal
+					setTogglePosterModal={setTogglePosterModal}
+					poster={poster}
+				/>
+			)}
 		</div>
 	);
 };
