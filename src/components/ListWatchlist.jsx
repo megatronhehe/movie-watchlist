@@ -44,7 +44,7 @@ const ListWatchlist = ({
 	const [togglePosterModal, setTogglePosterModal] = useState(false);
 
 	return (
-		<div className="text-gray-500 shadow-md">
+		<div className="text-gray-500 shadow-md rounded-xl">
 			<div className="flex items-center justify-between p-2 bg-gray-100 rounded-t-lg">
 				<h1 className="w-1/2">{title}</h1>
 				<div className="flex justify-end w-1/2 gap-2">
