@@ -9,7 +9,7 @@ const Header = () => {
 			<h1 className="py-8 text-xl tracking-widest text-center">
 				MeWatchThings
 			</h1>
-			<ul className="flex justify-between w-full max-w-2xl ">
+			<ul className="flex justify-between w-full max-w-lg ">
 				<NavLink to="/">
 					<li
 						className={`px-3 py-2 rounded-t-lg ${
