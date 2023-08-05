@@ -21,32 +21,41 @@ import {
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 const ListWatchlist = ({
-	imdbID,
-	title,
-	isDone,
-	isFavorite,
 	markFavorite,
 	markDone,
 	deleteMovie,
-	year,
-	imdbRating,
-	type,
-	runtime,
-	genre,
-	actors,
-	awards,
-	released,
-	plot,
-	poster,
+	movie,
+	toggleInfoById,
+	toggleInfo,
 }) => {
 	const [toggleDelete, setToggleDelete] = useState(false);
-	const [toggleInfo, setToggleInfo] = useState(false);
 	const [togglePosterModal, setTogglePosterModal] = useState(false);
+
+	const {
+		imdbID,
+		Poster,
+		Title,
+		Year,
+		imdbRating,
+		Runtime,
+		Genre,
+		Actors,
+		Awards,
+		Released,
+		Plot,
+		Type,
+		isDone,
+		isFavorite,
+	} = movie;
+
+	const isThisMovieInfoOpen = toggleInfo.find(
+		(item) => item.imdbID === imdbID
+	).isInfoOpen;
 
 	return (
 		<div className="text-gray-500 shadow-md rounded-xl">
 			<div className="flex items-center justify-between p-2 bg-gray-100 rounded-t-lg">
-				<h1 className="w-1/2">{title}</h1>
+				<h1 className="w-1/2">{Title}</h1>
 				<div className="flex justify-end w-1/2 gap-2">
 					<div className="flex gap-2">
 						{toggleDelete && (
@@ -83,35 +92,35 @@ const ListWatchlist = ({
 					</button>
 				</div>
 			</div>
-			{toggleInfo && (
+			{isThisMovieInfoOpen && (
 				<div className="relative p-2 text-sm bg-gray-100 bg-opacity-60">
 					<h1 className="mb-2 ml-4 text-base font-semibold">
-						{title} <span className="text-xs">({year})</span>
+						{Title} <span className="text-xs">({Year})</span>
 					</h1>
 					<ul className="flex flex-col gap-1">
-						<li>{type}</li>
+						<li>{Type}</li>
 						<li className="flex items-center gap-2">
 							<BsClock />
-							{runtime}
+							{Runtime}
 						</li>
 						<li className="flex items-center gap-2">
 							<BsFilm />
-							{genre}
+							{Genre}
 						</li>
 						<li className="flex items-center gap-2">
 							<BsFillPeopleFill />
-							{actors}
+							{Actors}
 						</li>
 						<li className="flex items-center gap-2">
 							<BsFillTrophyFill />
-							{awards}
+							{Awards}
 						</li>
 						<li className="flex items-center gap-2">
 							<BsCalendar3 />
-							{released}
+							{Released}
 						</li>
 						<li className="my-2 border-b"></li>
-						<li className="flex items-center gap-2">{plot}</li>
+						<li className="flex items-center gap-2">{Plot}</li>
 					</ul>
 					<div className="absolute right-2 top-2">
 						<p className="flex items-center gap-1 p-1 mb-2 text-sm text-white bg-gray-500 rounded-md">
@@ -128,7 +137,7 @@ const ListWatchlist = ({
 				</div>
 			)}
 			<div
-				onClick={() => setToggleInfo((prev) => !prev)}
+				onClick={() => toggleInfoById(imdbID)}
 				className="flex justify-center py-1 bg-gray-100 bg-opacity-10"
 			>
 				{toggleInfo ? <BsChevronUp /> : <BsChevronDown />}
@@ -136,7 +145,7 @@ const ListWatchlist = ({
 			{togglePosterModal && (
 				<PosterModal
 					setTogglePosterModal={setTogglePosterModal}
-					poster={poster}
+					poster={Poster}
 				/>
 			)}
 		</div>

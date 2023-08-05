@@ -16,16 +16,32 @@ import {
 import { HiSquare2Stack, HiMiniListBullet } from "react-icons/hi2";
 
 const MyWatchlist = () => {
+	// Context
 	const { watchlist, setWatchlist, deleteMovie, setSelectedTab } =
 		useContext(Context);
 
+	// keep track of open and closed more info accordion
+	const isInfoOpenById = watchlist.map((item) => ({
+		imdbID: item.imdbID,
+		isInfoOpen: false,
+	}));
+
 	const [filter, setFilter] = useState("true");
 	const [isViewCards, setIsViewCards] = useState(true);
+	const [toggleInfo, setToggleInfo] = useState(isInfoOpenById);
 
 	useEffect(() => {
 		setSelectedTab("watchlist");
 		setFilter("all");
 	}, []);
+
+	const toggleInfoById = (id) => {
+		setToggleInfo((prev) =>
+			prev.map((item) =>
+				item.imdbID === id ? { ...item, isInfoOpen: !item.isInfoOpen } : item
+			)
+		);
+	};
 
 	const markDone = (id) => {
 		setWatchlist((prev) =>
@@ -61,21 +77,7 @@ const MyWatchlist = () => {
 	const cardsElement = filteredMoviesArray.map((item) => (
 		<CardWatchlist
 			key={item.imdbID}
-			imdbID={item.imdbID}
-			poster={item.Poster}
-			title={item.Title}
-			year={item.Year}
-			imdbRating={item.imdbRating}
-			runtime={item.Runtime}
-			genre={item.Genre}
-			actors={item.Actors}
-			plot={item.Plot}
-			awards={item.Awards}
-			released={item.Released}
-			type={item.Type}
-			isDone={item.isDone}
-			isFavorite={item.isFavorite}
-			isBad={item.isBad}
+			movie={item}
 			markDone={markDone}
 			markFavorite={markFavorite}
 			deleteMovie={deleteMovie}
@@ -85,24 +87,12 @@ const MyWatchlist = () => {
 	const listElement = filteredMoviesArray.map((item) => (
 		<ListWatchlist
 			key={item.imdbID}
-			imdbID={item.imdbID}
-			poster={item.Poster}
-			title={item.Title}
-			year={item.Year}
-			imdbRating={item.imdbRating}
-			runtime={item.Runtime}
-			genre={item.Genre}
-			actors={item.Actors}
-			plot={item.Plot}
-			awards={item.Awards}
-			released={item.Released}
-			type={item.Type}
-			isDone={item.isDone}
-			isFavorite={item.isFavorite}
-			isBad={item.isBad}
+			movie={item}
 			markDone={markDone}
 			markFavorite={markFavorite}
 			deleteMovie={deleteMovie}
+			toggleInfoById={toggleInfoById}
+			toggleInfo={toggleInfo}
 		/>
 	));
 
