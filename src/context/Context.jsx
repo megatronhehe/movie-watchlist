@@ -6,6 +6,7 @@ const ContextProvider = ({ children }) => {
 	const [data, setData] = useState([]);
 	const [watchlist, setWatchlist] = useState([]);
 	const [selectedTab, setSelectedTab] = useState("");
+	const [isViewCards, setIsViewCards] = useState(true);
 
 	const deleteMovie = (id) => {
 		setWatchlist((prev) => prev.filter((item) => item.imdbID !== id));
@@ -17,6 +18,8 @@ const ContextProvider = ({ children }) => {
 				data,
 				watchlist,
 				selectedTab,
+				isViewCards,
+				setIsViewCards,
 				setSelectedTab,
 				setData,
 				setWatchlist,

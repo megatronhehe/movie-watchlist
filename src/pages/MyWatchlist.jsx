@@ -17,8 +17,14 @@ import { HiSquare2Stack, HiMiniListBullet } from "react-icons/hi2";
 
 const MyWatchlist = () => {
 	// Context
-	const { watchlist, setWatchlist, deleteMovie, setSelectedTab } =
-		useContext(Context);
+	const {
+		watchlist,
+		setWatchlist,
+		deleteMovie,
+		setSelectedTab,
+		isViewCards,
+		setIsViewCards,
+	} = useContext(Context);
 
 	// keep track of open and closed more info accordion
 	const isInfoOpenById = watchlist.map((item) => ({
@@ -27,7 +33,7 @@ const MyWatchlist = () => {
 	}));
 
 	const [filter, setFilter] = useState("true");
-	const [isViewCards, setIsViewCards] = useState(true);
+	// const [isViewCards, setIsViewCards] = useState(true);
 	const [toggleInfo, setToggleInfo] = useState(isInfoOpenById);
 
 	useEffect(() => {
