@@ -140,7 +140,7 @@ const ListWatchlist = ({
 				onClick={() => toggleInfoById(imdbID)}
 				className="flex justify-center py-1 bg-gray-100 bg-opacity-10"
 			>
-				{toggleInfo ? <BsChevronUp /> : <BsChevronDown />}
+				{isThisMovieInfoOpen ? <BsChevronUp /> : <BsChevronDown />}
 			</div>
 			{togglePosterModal && (
 				<PosterModal
