@@ -33,7 +33,6 @@ const MyWatchlist = () => {
 	}));
 
 	const [filter, setFilter] = useState("true");
-	// const [isViewCards, setIsViewCards] = useState(true);
 	const [toggleInfo, setToggleInfo] = useState(isInfoOpenById);
 
 	useEffect(() => {
@@ -63,6 +62,10 @@ const MyWatchlist = () => {
 				item.imdbID === id ? { ...item, isFavorite: !item.isFavorite } : item
 			)
 		);
+	};
+
+	const countPercentage = (done, total) => {
+		return ((100 * done) / total).toFixed();
 	};
 
 	const watchedMoviesCount = watchlist.filter(
@@ -102,9 +105,12 @@ const MyWatchlist = () => {
 		/>
 	));
 
-	const countPercentage = (done, total) => {
-		return ((100 * done) / total).toFixed(1);
-	};
+	const filterHeaderElement =
+		filter === "all"
+			? "All"
+			: filter === "true"
+			? "Watched"
+			: "Not yet watched";
 
 	const CardsContainer = ({ children }) => (
 		<div className="grid gap-4 sm:grid-cols-2">{children}</div>
@@ -115,8 +121,8 @@ const MyWatchlist = () => {
 
 	return (
 		<div className="">
-			<section className="p-2 mt-8 mb-2 tracking-wide text-center text-blue-100 bg-blue-500 rounded-lg ">
-				My Watch List
+			<section className="p-2 mt-8 mb-2 text-2xl tracking-wide text-center text-blue-100 bg-blue-500 rounded-lg font-extralight">
+				<h1>My Watch List</h1>
 			</section>
 
 			<section className="flex gap-2 text-sm text-white">
@@ -131,6 +137,7 @@ const MyWatchlist = () => {
 						<span className="text-xs">/{watchlist.length}</span>
 					</p>
 				</div>
+
 				<div className="flex flex-col items-center justify-center w-1/2 h-24 bg-gray-300 rounded-lg shadow-md">
 					<div className="flex text-2xl">
 						<BsEye />
@@ -142,6 +149,7 @@ const MyWatchlist = () => {
 						<span className="text-xs">/{watchlist.length}</span>
 					</p>
 				</div>
+
 				<div className="flex flex-col items-center justify-center w-1/2 h-24 bg-blue-300 rounded-lg shadow-md">
 					<div className="flex text-2xl">
 						<BsClipboardCheckFill />
@@ -163,13 +171,34 @@ const MyWatchlist = () => {
 					</p>
 					<ul className="flex gap-8 ">
 						<li>
-							<button onClick={() => setFilter("all")}>all</button>
+							<button
+								onClick={() => setFilter("all")}
+								className={`py-1 px-2 rounded-md ${
+									filter === "all" ? "bg-blue-500 text-white" : "bg-white"
+								}`}
+							>
+								all
+							</button>
 						</li>
 						<li>
-							<button onClick={() => setFilter("true")}>watched</button>
+							<button
+								onClick={() => setFilter("true")}
+								className={`py-1 px-2 rounded-md ${
+									filter === "true" ? "bg-blue-500 text-white" : "bg-white"
+								}`}
+							>
+								watched
+							</button>
 						</li>
 						<li>
-							<button onClick={() => setFilter("false")}>not watched</button>
+							<button
+								onClick={() => setFilter("false")}
+								className={`py-1 px-2 rounded-md ${
+									filter === "false" ? "bg-blue-500 text-white" : "bg-white"
+								}`}
+							>
+								not watched
+							</button>
 						</li>
 					</ul>
 				</div>
@@ -185,6 +214,9 @@ const MyWatchlist = () => {
 			</section>
 
 			<section className="mt-4">
+				<h1 className="p-2 mb-4 text-2xl border-b font-extralight">
+					{filterHeaderElement}
+				</h1>
 				{watchlist.length > 0 ? (
 					isViewCards ? (
 						<CardsContainer>{cardsElement}</CardsContainer>
