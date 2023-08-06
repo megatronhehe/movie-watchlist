@@ -40,6 +40,12 @@ const MyWatchlist = () => {
 		setFilter("all");
 	}, []);
 
+	useEffect(() => {
+		setToggleInfo((prev) =>
+			prev.map((item) => ({ ...item, isInfoOpen: false }))
+		);
+	}, [filter]);
+
 	const toggleInfoById = (id) => {
 		setToggleInfo((prev) =>
 			prev.map((item) =>
